@@ -1,0 +1,329 @@
+\documentclass[a4paper]{tufte-handout}
+
+%\geometry{showframe}% for debugging purposes -- displays the margins
+
+\usepackage{amsmath}
+\usepackage{fixltx2e}   % allows to use \textsubscript
+
+\hyphenation{turf-grass}
+
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+
+\title{2014 Global Soil Survey Report}
+\author{Micah Woods, Larry Stowell, and Wendy Gelernter}
+\date{12 September 2014}  
+
+% The following package makes prettier tables.  
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% Provides paragraphs of dummy text
+\usepackage{lipsum}
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+\usepackage{siunitx}  	% for consistent & correct units
+\DeclareSIUnit\month{mo}
+\DeclareSIUnit\year{yr}
+
+\begin{document}
+
+\maketitle % this prints the handout title, author, and date
+
+\newthought{We've been looking forward} to writing this first report\footnote[][-1cm]{The code to generate this report is hosted at \url{github}. We wrote this as a \texttt{.Rnw} file, used \textbf{knitr} to weave this document, and compiled it in \LaTeX{} using the \texttt{tufte-handout} document class.} since we announced the Global Soil Survey\footnote[][1cm]{\url{http://www.paceturf.org/journal/global_soil_survey}} (GSS) in August 2013. 
+
+This is an exciting citizen science project, and it has been fun to review the data and analyze the results. Thank you to everyone who has taken an interest in this project and has submitted samples. As you read this report, you can compare your sample results to the summary of all the data. If you haven't participated in the survey, please consider doing so,\footnote{One kit includes three complete soil nutrient analyses. You receive the soil test results and a report; we add the data from the tests to the GSS database. To purchase a kit go to \url{https://www.paceturf.org/shop/product/global_soil_survey_kit}} because this is an ongoing project. With a broader range of soil types and grass types in this dataset, the results will be even more useful to turfgrass managers around the world.
+
+We have written this report with three objectives. First, to provide a summary of the first year results to those who have participated in the survey. Second, to describe and demonstrate how we use these data to calculate a nutrient guideline level. Third, to share the results of this project with the public.
+
+\section{Year one summary: soil samples, grass species, and locations}
+
+<<readdata, results='hide',echo=FALSE, include=FALSE>>=
+source("r/libraries.r")
+source("r/functions.r")
+
+# calculate the GSS mlsn values
+source("r/gss_report_calculate.R")
+@
+
+\newthought{The first samples} from this project were analyzed in September 2013. This report includes a summary and analysis of the data from kits returned up to 31 August 2014. In total this is \Sexpr{length(levels(gss$Doc))} kits, each with 3 samples from good performing turf. That comes to \Sexpr{length(gss$pH)} soil samples from areas producing good performing turf at the time the samples were collected.
+
+\begin{margintable}
+  \centering
+  \fontfamily{ppl}\selectfont
+  \begin{tabular}{l}
+    \toprule
+    Grass species\\
+    \midrule
+    perennial ryegrass\\
+    kentucky bluegrass\\
+    creeping bentgrass\\
+    bent-poa\\
+    poa-bent\\
+    fescue-bent\\
+    fescue-poa\\
+    \emph{Poa annua}\\
+    bent-poa-rye\\
+    rye-bluegrass-bent\\
+    bermudagrass\\
+    manilagrass (\emph{Zoysia matrella})\\
+    japanese lawngrass (\emph{Z. japonica})\\
+    seashore paspalum\\
+    \bottomrule
+  \end{tabular}
+  \caption{Samples were submitted from soils supporting good performing turf of the listed grass species in the first year of the GSS.}
+  \label{tab:grasses}
+  %\zsavepos{pos:normaltab}
+\end{margintable}
+
+Although this is an analysis of \emph{soil} nutrient levels, the objective is to identify the soil nutrient levels sufficient to produce good performing turf. Table~\ref{tab:grasses} lists the grass species growing on the soils which were submitted in the first year of the GSS.
+
+Samples submitted in the first year of the GSS come from four countries (Canada, Japan, Thailand, and USA) and one Crown dependency (Isle of Man). Figure~\ref{fig:locations} shows the approximate locations from which samples were collected.\footnote[][3cm]{Rather than marking the exact sample location, for privacy purposes we've just marked the map in the state, province, or prefecture from which the samples were collected.}
+
+\begin{figure} 
+\includegraphics{figure/locations.jpg} 
+\caption{Red circles on this world map indicate the locations from which samples were submitted in year one of the Global Soil Survey.}
+\label{fig:locations}
+\end{figure}
+
+The samples submitted so far represent a broad range of grass species and climates and soil types -- from British Columbia to Prince Edward Island, Seattle to Florida, Tennessee and Texas to Thailand and Tokyo.
+
+\section{Data summary}
+
+\newthought{Table~\ref{tab:sumtable} summarizes} the data collected through 31 August 2014. The \emph{n} column is the number of data points for that particular test parameter. Three calcareous samples have been dropped for the calcium analysis. We do not calculate a mean value for pH, because pH is on a logarithmic scale, and we do not calculate a MLSN value for pH or for soil organic matter.
+
+<<sumtable,results='asis',echo=FALSE>>=
+options(xtable.comment = FALSE)
+options(xtable.booktabs = TRUE)
+sum.table <- xtable(sum.table, caption = "Summary of Global Soil Survey data from September 2013 through August 2014.", label = "tab:sumtable")
+digits(sum.table) <- c(0, 0, 0, 0, 0, 0, 0, 0)
+print(sum.table, include.rownames = FALSE)
+@
+
+The \emph{MLSN} column shows the MLSN guideline\footnote[][-2cm]{More detail about the MLSN guidelines is in the next section; for a quick introduction see \url{http://www.paceturf.org/journal/minimum_level_for_sustainable_nutrition} and \url{https://www.facebook.com/mlsnturf}.} calculated from the GSS dataset. We calculate the ``official'' MLSN guidelines from a combined dataset of thousands of soil test results.\footnote{The MLSN guidelines as of November 2014 are here: \url{https://scisoc.confex.com/scisoc/2014am/webprogram/Paper86244.html}} With the GSS data, we are able to do two things. First, we can analyze the GSS data separately, as shown in Table~\ref{tab:sumtable}, to find the range of soil conditions in which turf is performing well. These GSS data serve as an important dataset which we can use for comparison with the MLSN dataset. Second, we can add the GSS data to the larger MLSN dataset to increase the breadth of grass types and soil types included.
+
+\section{How are the MLSN guidelines calculated?}
+
+\newthought{How do we} go about analyzing the soil test data to calculate an MLSN guideline? First, we take a vector of test results for the element of interest. In this case, let's use the potassium (K) data from the GSS. Here is a vector\footnote{The numbers inside square brackets, such as [18], are not soil test data. Rather, they are an indicator of the count: ``the next number is the first, or the next number is the 18\textsuperscript{th}, or the 52\textsuperscript{nd}, and so on.''} of all the K data, in ppm using the Mehlich 3 extractant.
+
+<<kvector,results='asis',echo=FALSE>>=
+gss$KM3
+gss150 <- filter(gss, KM3 >= 150)
+gss180 <- filter(gss, KM3 >= 180)
+@
+
+Those are the same data summarized in Table~\ref{tab:sumtable}. The minimum value is \Sexpr{min(gss$KM3)}, the mean is \Sexpr{round(mean(gss$KM3), 0)}, and the maximum value is \Sexpr{max(gss$KM3)}. A good way to get a better look at how those data are distributed is to look at them in a histogram (Figure~\ref{fig:khisto}). This bins the data, showing how many of the soil test K values are at a certain level.
+
+\begin{marginfigure}
+<<khisto,results='asis',echo=FALSE>>=
+par(cex = 2)
+myhist <- hist(gss$KM3, breaks = 50, main = NULL, xlab = "K (ppm)")
+@
+\caption{A histogram of the GSS K data.}
+\label{fig:khisto}
+\end{marginfigure}
+
+From Figure~\ref{fig:khisto}, one can see that most of the soils have K in the 50 to 100 ppm range, and that there are few (\Sexpr{length(gss150$KM3)} samples out of \Sexpr{length(gss$KM3)}) above 150 ppm. This disparity between the actual soil conditions in which good performing turf is being produced around the world, and conventional nutrient guidelines for turfgrass, is one of the main reasons we started the Global Soil Survey. Penn State University, for example, recommends K be maintained on golf course putting greens at 180 to 220 ppm\footnote{\url{http://bit.ly/psu_green}}. As the GSS data for K show, turfgrass soils generally don't hold that much K. And it does not appear that such a high level of K is necessary to produce good turf, because all of the samples in the GSS dataset were producing good turf at the time of sample collection, even though \Sexpr{round((1 - (length(gss180$KM3) / (length(gss$KM3)))) * 100, 1)}\% of the GSS samples have K less 180 ppm.
+
+\begin{marginfigure}
+<<kdensity,results='asis',echo=FALSE>>=
+par(cex = 2)
+multiplier <- myhist$counts / myhist$density
+  mydensity <- density(gss$KM3, na.rm = TRUE)
+  mydensity$y <- mydensity$y * multiplier[1]
+  
+  plot(myhist, main = NULL, xlab = "K (ppm)")
+  lines(mydensity, col = "#7570b3", lwd = 6, main = NULL)
+legend(120, 8, c("density"),
+         col=c("#7570b3"),
+         lwd = 6)
+@
+\caption{A histogram of the GSS K data with density curve.}
+\label{fig:kdensity}
+\end{marginfigure}
+
+Now we can look even more closely at the K data, trying to find a probability distribution that is close to the actual distribution of the data. We can plot the density over the histogram, as shown in Figure~\ref{fig:kdensity}. If the K data came from a normal distribution, the normal curve for the GSS K data would approximate the density of the data. But when we plot the normal distribution based on these data (Figure~\ref{fig:knormal}), we can see that the normal distribution doesn't fit these data very well.
+
+\begin{marginfigure}
+<<knormal, results='asis', echo=FALSE>>=
+par(cex = 2)
+  myx <- seq(min(gss$KM3, na.rm = TRUE), max(gss$KM3, na.rm = TRUE), length.out= 200)
+  mymean <- mean(gss$KM3, na.rm = TRUE)
+  mysd <- sd(gss$KM3, na.rm = TRUE)
+  
+  normal <- dnorm(x = myx, mean = mymean, sd = mysd)
+plot(myhist, main = NULL, xlab = "K (ppm)")
+lines(mydensity, col = "#7570b3", lwd = 6, main = NULL)
+lines(myx, normal * multiplier[1], col = "#d95f02", lwd = 6, main = NULL)
+
+legend(120, 8, c("density", "normal"),
+         col=c("#7570b3", "#d95f02"),
+         lwd = 6)
+
+@
+\caption{A histogram of the GSS K data with density and normal curves.}
+\label{fig:knormal}
+\end{marginfigure}
+
+\begin{marginfigure}
+<<kfisk, results='asis', echo=FALSE>>=
+par(cex = 2)
+  myx <- seq(min(gss$KM3, na.rm = TRUE), max(gss$KM3, na.rm = TRUE), length.out= 200)
+  mymean <- mean(gss$KM3, na.rm = TRUE)
+  mysd <- sd(gss$KM3, na.rm = TRUE)
+  
+  normal <- dnorm(x = myx, mean = mymean, sd = mysd)
+plot(myhist, main = NULL, xlab = "K (ppm)")
+lines(mydensity, col = "#7570b3", lwd = 6, main = NULL)
+lines(myx, normal * multiplier[1], col = "#d95f02", lwd = 6, main = NULL)
+
+  fit.x <- vglm(gss$KM3 ~ 1, fisk)
+  z <- Coef(fit.x)
+  fisk.nums <- dfisk(myx, z[1], z[2])
+  
+  
+  lines(myx, fisk.nums * multiplier[1], col = "#1b9e77", lwd = 6, main = NULL)
+
+legend(120, 8, c("density", "normal", "Fisk"),
+         col=c("#7570b3", "#d95f02", "#1b9e77"),
+         lwd = 6)
+
+@
+\caption{A histogram of the GSS K data with curves showing the density, a normal distribution, and a Fisk distribution.}
+\label{fig:kfisk}
+\end{marginfigure}
+
+The log-logistic (Fisk) distribution fits the actual data much better, as shown in Figure~\ref{fig:kfisk}. Now the line for the Fisk distribution is similar to that of the density. 
+
+Alright, so we've identified a probability distribution that somewhat approximates the actual data. When we think about that, that is quite something, because we are working with data that come from so many different soil types, in which so many grasses are growing, from so many different climates, and of course each site is being managed independently with varying types and rates of K fertilizer being applied. 
+
+Yet even with all these variables, we are able to identify a model that can describe the data, in terms of how likely it is that a sample from within this collection of soil samples will be above or below a certain level of soil K. This will be useful as we identify a MLSN guideline for K based on this model describing the data.
+
+Now we move on to the step at which we identify the MLSN guideline level. We have a GSS dataset for K with \Sexpr{length(gss$KM3)} data points, distributed as shown in Figure~\ref{fig:khisto} and approximated by a Fisk distribution as shown in Figure~\ref{fig:kfisk}. These data can be looked at in another way too, as a cumulative distribution function, which shows for each level of x, which in this case is the soil test K level, what percentage of the samples are at or below that level. It is, essentially, a step function. We start at soil test level of 0 ppm, and at that level, there are 0 samples in the GSS dataset. Remember, we have a minimum value for K in this dataset of \Sexpr{min(gss$KM3)}. 
+
+Then moving up, to 1 ppm, and to 2 ppm, all the way to the maximum of \Sexpr{max(gss$KM3)} ppm, at each level, we plot on the y-axis just what fraction of the samples that have occurred at or below that level. This is a cumulative distribution function, and it is plotted in Figure~\ref{fig:kcdf1}. What is plotted is the percentage of values at or below the value on the x-axis.
+
+\begin{marginfigure}
+<<kcdf, results='asis', echo=FALSE>>=
+par(cex = 2)
+  
+  # makes a plot
+  
+  plot(ecdf(gss$KM3), verticals=TRUE, do.p=FALSE,
+        col.h="#d95f02", col.v="#d95f02",lty="dashed", lwd = 6,
+       main = NULL, xlab = "K (ppm)")
+  
+  legend(85, .5, c("GSS data"),
+         col=c("#d95f02"),
+         lty=c("dashed"),
+         lwd = 6) 
+@
+\caption{Cumulative distribution of GSS K data.}
+\label{fig:kcdf1}
+\end{marginfigure}
+
+Now we are getting close to where the MLSN guideline comes from! Remember that we found a Fisk distribution is a pretty good fit for these data. A model from that distribution can approximate the distribution of the actual data that we have collected. And we can plot the cumulative distribution function of our model, which is shown in Figure~\ref{fig:kcdf2}. The model is almost right on top of the actual survey data. It's a good fit.
+
+\begin{marginfigure}
+
+<<kcdfpair, results='asis', echo=FALSE>>=
+par(cex = 2)
+  # write function to make an ECDF for an element
+# x is vector to plot, x1 is the shift on legend
+  
+  fit.x <- vglm(gss$KM3 ~ 1, fisk)
+  z <- Coef(fit.x)
+  
+  sim.data <- data.frame(y = rfisk(n = 1000,
+                                   z[1], z[2])) 
+  
+  # makes a plot
+  
+  plot(ecdf(gss$KM3), verticals=TRUE, do.p=FALSE,
+        col.h="#d95f02", col.v="#d95f02",lty="dashed", lwd = 6,
+       main = NULL, xlab = "K (ppm)")
+  
+  lines(ecdf(sim.data$y), verticals=TRUE, do.p=FALSE,
+        col.h="#1b9e77", col.v="#1b9e77",lty="solid", lwd = 2,
+        main = NULL, xlab = "K (ppm)")
+  
+  legend(85, .5, c("GSS data", "model"),
+         col=c("#d95f02", "#1b9e77"),
+         lty=c("dashed", "solid"),
+         lwd = 3) 
+@
+
+\caption{Cumulative distribution of GSS K data and cumulative distribution function of the model from the Fisk distribution fit to the survey data.}
+\label{fig:kcdf2}
+\end{marginfigure}
+
+Once we have a model that is a good approximation of the data, we then identify the 0.1 level -- that is, the level of x at which 10\% of the data are at or below that level. In the case of K in the survey data so far, the value of x (K ppm) at which y = 0.1 is \Sexpr{mlsn(gss$KM3)}. As shown in Table~\ref{tab:sumtable}, the MLSN guideline calculated for the GSS K data is \Sexpr{mlsn(gss$KM3)}.
+
+\subsection{Why the 0.1 level?}
+
+We have used the 0.1 level to identify the MLSN guideline. The dataset doesn't include any bad samples; all the turf growing in the soils in the dataset was performing well at the time the samples were collected. So one could interpret the results as ``any level at or above the minimum level within the dataset is enough to produce good turf.'' However, we like to be a bit conservative, so what we do is move up from the minimum, assuming that we want to have a bit of a buffer above that absolute minimum value, and the 0.1 level creates that buffer.
+
+Going back to Table~\ref{tab:sumtable}, you can see that the minimum level for an element is always less than the MLSN guideline. For example, with K the minimum level was \Sexpr{min(gss$KM3)} ppm, but the guideline is \Sexpr{mlsn(gss$KM3)}. So we first buffer by saying that 10\% of the samples, even though the turf growing in those soils is performing well, are for the purposes of our analysis, lower than we want. Then, we develop fertilizer recommendations that are based on keeping the soil levels of nutrients at or above the MLSN guideline. In this way, we can be confident that the guideline is safe. We know it is not the absolute minimum, and furthermore, the fertilizer recommendations are set to ensure the soil will remain at or above the guideline level.
+
+\section{Reasoning behind the Global Soil Survey}
+
+\newthought{There is so much data} out there, embedded, so to say, in the soils of turfgrass sites around the world. Could we put a system in place to collect some of these data, and analyze them, to provide results that would be of value to the entire industry? We envisioned a collaborative project between turfgrass managers and researchers, helping to develop, refine, and verify new nutrient guidelines. That became the Global Soil Survey.
+
+As you have seen, we work with data from the soils of turfgrass sites from all over the world, and we collect more and more data month after month, and year after year. These project is set up to analyze the data, and to move the guidelines closer and closer to the most accurate values. If turf is not performing well, and the cause is a nutrient deficiency, then those soil data with nutrient deficient conditions will not be included in our data. Why? Because turf has to be performing well to be included. As the data change, so do the guidelines.
+
+\section{A comparison of MLSN and GSS results}
+
+\newthought{The MLSN guidelines} have been updated since their first release in 2012 and we will be sharing these new guidelines over the next few months, including at the Crop Science Society of America annual meeting at Long Beach this November.\footnote{Abstract of our presentation entitled Only What the Turf Needs: Updating the Minimum Levels for Sustainable Nutrition (MLSN) Guidelines: \url{https://scisoc.confex.com/scisoc/2014am/webprogram/Paper86244.html}.} 
+
+We wanted to wait to update the MLSN guidelines until we had the first year of GSS data to include in the large dataset. We also wanted to make a specific comparison between the MLSN guideline in the large dataset and the MLSN guideline calculated from the GSS data only. The updated MLSN guidelines in ppm are K 37, P 21, Ca 331, Mg 47, and S 7. Compared to the 2012 version of the guidelines, K and P have gone up, and Ca, Mg, and S have gone down. 
+
+What if we calculate the guidelines just from the GSS data, which come from such a broad distribution of soil, grass, and geography? What are the numbers then? In ppm, we get K 35, P 22, Ca 267, Mg 47, and S 8. With the exception of Ca, which is much lower in the GSS dataset, the other elements\footnote{What about micronutrients? For now, we are generating MLSN guidelines for the macronutrients (K and P) and the secondary nutrients (Ca, Mg, and S). We have some great data from our MLSN dataset and now from the GSS, so we will be looking into micronutrients using this same methodology as a future project.} are remarkably similar. This comparison between the MLSN guidelines and the guidelines calculated only from the GSS data provides some reassurance that the MLSN guidelines are reasonable. As the GSS dataset increases in size, we will continue to make this comparison to ensure that the guidelines represent a reasonable value for each element.
+
+\section{Just a bit more detail about the GSS data}
+
+\newthought{We've summarized} the data in Table~\ref{tab:sumtable}, and the data for K was shown in Figure~\ref{fig:kdensity} and other plots. Figure~\ref{fig:histograms} summarizes the main data from the Global Soil Survey, excluding K.
+
+\begin{figure*}
+<<appendix, results='asis', echo=FALSE>>=
+# make hist of pH, OM, P, Ca, Mg, S
+
+par(mfrow=c(2,3))
+hist(gss$pH, main = NULL, xlab = "pH", breaks = 50)
+hist(gss$OM, main = NULL, xlab = "Organic matter (%)", breaks = 50)
+hist(gss$PM3, main = NULL, xlab = "P (ppm)", breaks = 50)
+hist(gssCa$CaM3, main = NULL, xlab = "Ca (ppm)", breaks = 50)
+hist(gss$MgM3, main = NULL, xlab = "Mg (ppm)", breaks = 50)
+hist(gss$S, main = NULL, xlab = "S (ppm)", breaks = 50)
+@
+\caption{Histograms of Global Soil Survey data on pH, organic matter, and Mehlich 3 extractable P, Ca, Mg, and S.}
+\label{fig:histograms}
+\end{figure*}
+
+\nobibliography{/Users/woods/reports/citation.bib}
+\bibliographystyle{plainnat}
+
+\end{document}
+
+%\printclassoptions
