@@ -18,7 +18,7 @@ In `R`:
 
 That will create the `2014_gss_report.tex` file.
 
-Then using the terminal command line:
+Then at the terminal command line:
 
 `cd directory name`   
 `pdflatex 2014_gss_report.tex`   
