@@ -12,17 +12,17 @@ Note that this report uses the tufte-handout class, which is available here: htt
 
 In `R`:
 
-`setwd("directory name")
-library(knitr)
-knit("2014_gss_report.Rnw")`
+`setwd("directory name")`
+`library(knitr)`
+`knit("2014_gss_report.Rnw")`
 
 That will create the `2014_gss_report.tex` file.
 
 Then using the terminal command line:
 
-`cd directory name
-pdflatex 2014_gss_report.tex`
+`cd directory name`
+`pdflatex 2014_gss_report.tex`
 
-Run `pdflatex` on `2014_gss_report.tex` a second time to get all the cross-references numbered correctly.
+Run `pdflatex 2014_gss_report.tex` a second time to get all the cross-references numbered correctly.
 
 That will produce the final report in PDF format.
