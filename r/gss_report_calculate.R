@@ -37,4 +37,4 @@ colnames(sum.table) <- c("Soil parameter", "n", "Min",
 sum.table$Mean <- round(as.numeric(as.character(sum.table$Mean)), 0)
 sum.table[[2, 5]] <- 2.4
 sum.table$Mean <- as.factor(sum.table$Mean)
-sum.table$MLSN <- as.numeric(as.character(sum.table$MLSN))
+sum.table$GSS <- as.numeric(as.character(sum.table$GSS))
