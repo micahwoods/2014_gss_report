@@ -32,7 +32,7 @@ sum.table <- as.data.frame(rbind(pH, OM, K, P, Ca, Mg, S))
 sum.table <- cbind(parameters, sum.table)
 
 colnames(sum.table) <- c("Soil parameter", "n", "Min", 
-                         "Median", "Mean", "Max", "MLSN")
+                         "Median", "Mean", "Max", "GSS")
 
 sum.table$Mean <- round(as.numeric(as.character(sum.table$Mean)), 0)
 sum.table[[2, 5]] <- 2.4
