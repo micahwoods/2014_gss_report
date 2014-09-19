@@ -25,4 +25,4 @@ Then at the terminal command line:
 
 Run `pdflatex 2014_gss_report.tex` a second time to get all the cross-references numbered correctly.
 
-That will produce the final report in PDF format.
+That will produce the final report in PDF format. The report is available for download at http://www.paceturf.org/PTRI/Documents/2014_gss_report.pdf
