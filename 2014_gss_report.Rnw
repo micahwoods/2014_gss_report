@@ -114,7 +114,7 @@ The samples submitted so far represent a broad range of grass species and climat
 
 \section{Data summary}
 
-\newthought{Table~\ref{tab:sumtable} summarizes} the data collected through 31 August 2014. The \emph{n} column is the number of data points for that particular test parameter. Three calcareous samples have been dropped for the calcium analysis. We do not calculate a mean value for pH, because pH is on a logarithmic scale, and we do not calculate a MLSN value for pH or for soil organic matter.
+\newthought{Table~\ref{tab:sumtable} summarizes} the data collected through 31 August 2014. The \emph{n} column is the number of data points for that particular test parameter. Three calcareous samples have been dropped for the calcium analysis. We do not calculate a mean value for pH, because pH is on a logarithmic scale, and we do not calculate a GSS value for pH or for soil organic matter.
 
 <<sumtable,results='asis',echo=FALSE>>=
 options(xtable.comment = FALSE)
@@ -124,7 +124,7 @@ digits(sum.table) <- c(0, 0, 0, 0, 0, 0, 0, 0)
 print(sum.table, include.rownames = FALSE)
 @
 
-The \emph{MLSN} column shows the MLSN guideline\footnote[][-2cm]{More detail about the MLSN guidelines is in the next section; for a quick introduction see \url{http://www.paceturf.org/journal/minimum_level_for_sustainable_nutrition} and \url{https://www.facebook.com/mlsnturf}.} calculated from the GSS dataset. We calculate the ``official'' MLSN guidelines from a combined dataset of thousands of soil test results.\footnote{The MLSN guidelines as of November 2014 are here: \url{https://scisoc.confex.com/scisoc/2014am/webprogram/Paper86244.html}} With the GSS data, we are able to do two things. First, we can analyze the GSS data separately, as shown in Table~\ref{tab:sumtable}, to find the range of soil conditions in which turf is performing well. These GSS data serve as an important dataset which we can use for comparison with the MLSN dataset. Second, we can add the GSS data to the larger MLSN dataset to increase the breadth of grass types and soil types included.
+The \emph{GSS} column shows the GSS MLSN guideline\footnote[][-2cm]{More detail about the MLSN guidelines is in the next section; for a quick introduction see \url{http://www.paceturf.org/journal/minimum_level_for_sustainable_nutrition} and \url{https://www.facebook.com/mlsnturf}.} calculated from the GSS dataset. We calculate the ``official'' MLSN guidelines from a combined dataset of thousands of soil test results.\footnote{The MLSN guidelines as of November 2014 are here: \url{https://scisoc.confex.com/scisoc/2014am/webprogram/Paper86244.html}} With the GSS data, we are able to do two things. First, we can analyze the GSS data separately, as shown in Table~\ref{tab:sumtable}, to find the range of soil conditions in which turf is performing well. These GSS data serve as an important dataset which we can use for comparison with the MLSN dataset. Second, we can add the GSS data to the larger MLSN dataset to increase the breadth of grass types and soil types included.
 
 \section{How are the MLSN guidelines calculated?}
 
@@ -281,13 +281,13 @@ par(cex = 2)
 \label{fig:kcdf2}
 \end{marginfigure}
 
-Once we have a model that is a good approximation of the data, we then identify the 0.1 level -- that is, the level of x at which 10\% of the data are at or below that level. In the case of K in the survey data so far, the value of x (K ppm) at which y = 0.1 is \Sexpr{mlsn(gss$KM3)}. As shown in Table~\ref{tab:sumtable}, the MLSN guideline calculated for the GSS K data is \Sexpr{mlsn(gss$KM3)}.
+Once we have a model that is a good approximation of the data, we then identify the 0.1 level -- that is, the level of x at which 10\% of the data are at or below that level. In the case of K in the survey data so far, the value of x (K ppm) at which y = 0.1 is \Sexpr{mlsn(gss$KM3)}. As shown in Table~\ref{tab:sumtable}, the GSS MLSN guideline calculated for the GSS K data is \Sexpr{mlsn(gss$KM3)}.
 
 \subsection{Why the 0.1 level?}
 
-We have used the 0.1 level to identify the MLSN guideline. The dataset doesn't include any bad samples; all the turf growing in the soils in the dataset was performing well at the time the samples were collected. So one could interpret the results as ``any level at or above the minimum level within the dataset is enough to produce good turf.'' However, we like to be a bit conservative, so what we do is move up from the minimum, assuming that we want to have a bit of a buffer above that absolute minimum value, and the 0.1 level creates that buffer.
+We have used the 0.1 level to identify the MLSN guideline.\footnote[][1cm]{And we have used a 0.1 level to calculate a GSS guideline as shown in Table~\ref{tab:sumtable}.} The dataset doesn't include any bad samples; all the turf growing in the soils in the dataset was performing well at the time the samples were collected. So one could interpret the results as ``any level at or above the minimum level within the dataset is enough to produce good turf.'' However, we like to be a bit conservative, so what we do is move up from the minimum, assuming that we want to have a bit of a buffer above that absolute minimum value, and the 0.1 level creates that buffer.
 
-Going back to Table~\ref{tab:sumtable}, you can see that the minimum level for an element is always less than the MLSN guideline. For example, with K the minimum level was \Sexpr{min(gss$KM3)} ppm, but the guideline is \Sexpr{mlsn(gss$KM3)}. So we first buffer by saying that 10\% of the samples, even though the turf growing in those soils is performing well, are for the purposes of our analysis, lower than we want. Then, we develop fertilizer recommendations that are based on keeping the soil levels of nutrients at or above the MLSN guideline. In this way, we can be confident that the guideline is safe. We know it is not the absolute minimum, and furthermore, the fertilizer recommendations are set to ensure the soil will remain at or above the guideline level.
+Going back to Table~\ref{tab:sumtable}, you can see that the minimum level for an element is always less than the GSS value. For example, with K the minimum level was \Sexpr{min(gss$KM3)} ppm, but the guideline is \Sexpr{mlsn(gss$KM3)}. So we first buffer by saying that 10\% of the samples, even though the turf growing in those soils is performing well, are for the purposes of our analysis, lower than we want. Then, we develop fertilizer recommendations that are based on keeping the soil levels of nutrients at or above the MLSN guideline. In this way, we can be confident that the guideline is safe. We know it is not the absolute minimum, and furthermore, the fertilizer recommendations are set to ensure the soil will remain at or above the guideline level.
 
 \section{Reasoning behind the Global Soil Survey}
 
