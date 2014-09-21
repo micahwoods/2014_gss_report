@@ -8,7 +8,7 @@ The files in this repository will generate the 2014 [Global Soil Survey](http://
 
 The data are in the `/data` folder of this repository. 
 
-Direct link: [GSS survey data September 20133 to August 2014](https://github.com/micahwoods/2014_gss_report/blob/master/data/20140910_gss.csv)
+Direct link: [GSS survey data, September 2013 to August 2014](https://github.com/micahwoods/2014_gss_report/blob/master/data/20140910_gss.csv)
 
 ### If you are interested in the analyses we have done
 
