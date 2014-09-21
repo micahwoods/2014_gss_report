@@ -1,45 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>2014 gss report by micahwoods</title>
-
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <title>2014 gss report by micahwoods</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
+    <header>
+      <div class="inner">
         <h1>2014 gss report</h1>
-        <p>The files in this repository generate the 2014 Global Soil Survey report.</p>
-        <p class="view"><a href="https://github.com/micahwoods/2014_gss_report">View the Project on GitHub <small>micahwoods/2014_gss_report</small></a></p>
-        <ul>
-          <li><a href="https://github.com/micahwoods/2014_gss_report/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/micahwoods/2014_gss_report/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/micahwoods/2014_gss_report">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <p>The files in this repository will generate the 2014 <a href="http://www.paceturf.org/journal/global_soil_survey">Global Soil Survey</a> report, a joint project of <a href="http://www.paceturf.org/">PACE Turf</a>, the <a href="http://www.asianturfgrass.com/">Asian Turfgrass Center</a>, and the turfgrass managers from around the world who have contributed samples to this project. </p>
+        <h2>The files in this repository generate the 2014 Global Soil Survey report.</h2>
+        <a href="https://github.com/micahwoods/2014_gss_report" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p>The files in this repository will generate the 2014 <a href="http://www.paceturf.org/journal/global_soil_survey">Global Soil Survey</a> report, a joint project of <a href="http://www.paceturf.org/">PACE Turf</a>, the <a href="http://www.asianturfgrass.com/">Asian Turfgrass Center</a>, and the turfgrass managers from around the world who have contributed samples to this project. </p>
 
 <h3>
-<a name="required-files-and-software" class="anchor" href="#required-files-and-software"><span class="octicon octicon-link"></span></a>Required files and software</h3>
+<a name="if-you-just-want-a-copy-of-the-report" class="anchor" href="#if-you-just-want-a-copy-of-the-report"><span class="octicon octicon-link"></span></a>If you just want a copy of the report</h3>
+
+<p><a href="http://www.paceturf.org/PTRI/Documents/2014_gss_report.pdf">Download</a> a <code>pdf</code> copy of the first year report.</p>
+
+<h3>
+<a name="if-you-want-to-see-study-or-analyze-the-gss-data" class="anchor" href="#if-you-want-to-see-study-or-analyze-the-gss-data"><span class="octicon octicon-link"></span></a>If you want to see, study, or analyze the GSS data</h3>
+
+<p>The data are in the <code>/data</code> folder of this repository. </p>
+
+<p>Direct link: <a href="https://github.com/micahwoods/2014_gss_report/blob/master/data/20140910_gss.csv">GSS survey data, September 2013 to August 2014</a></p>
+
+<h3>
+<a name="if-you-are-interested-in-the-analyses-we-have-done" class="anchor" href="#if-you-are-interested-in-the-analyses-we-have-done"><span class="octicon octicon-link"></span></a>If you are interested in the analyses we have done</h3>
+
+<p>Check out the code chunks in the <code>2014_gss_report.Rnw</code> file.</p>
+
+<h3>
+<a name="if-you-would-like-to-reproduce-this-report" class="anchor" href="#if-you-would-like-to-reproduce-this-report"><span class="octicon octicon-link"></span></a>If you would like to reproduce this report</h3>
+
+<h4>
+<a name="required-files-and-software" class="anchor" href="#required-files-and-software"><span class="octicon octicon-link"></span></a>Required files and software</h4>
 
 <p>Put these files in a directory. </p>
 
-<p>One must have <code>R</code> and <code>LaTeX</code> installed. The <code>R</code> packages <code>knitr</code>, <code>dplyr</code>, <code>VGAM</code>, and <code>xtable</code> must be installed also.</p>
+<p><code>R</code> and <code>LaTeX</code> must be installed on one's machine. The <code>R</code> packages <code>knitr</code>, <code>dplyr</code>, <code>VGAM</code>, and <code>xtable</code> must be installed also.</p>
 
-<p>Note that this report uses the tufte-handout class, which is available here: <a href="https://code.google.com/p/tufte-latex/">https://code.google.com/p/tufte-latex/</a>. The <code>tufte-common.def</code> and <code>tufte-handout.cls</code> files should be in the same directory with the <code>.Rnw</code> and <code>.tex</code> files.</p>
+<p>Note that this report uses the <a href="https://code.google.com/p/tufte-latex/">tufte-handout class</a>. The <code>tufte-common.def</code> and <code>tufte-handout.cls</code> files should be in the same directory with the <code>.Rnw</code> and <code>.tex</code> files.</p>
 
-<h3>
-<a name="generating-the-report" class="anchor" href="#generating-the-report"><span class="octicon octicon-link"></span></a>Generating the report</h3>
+<h4>
+<a name="generating-the-report" class="anchor" href="#generating-the-report"><span class="octicon octicon-link"></span></a>Generating the report</h4>
 
 <p>In <code>R</code>:</p>
 
@@ -53,19 +74,38 @@
 
 <p>Run <code>pdflatex 2014_gss_report.tex</code> a second time to get all the cross-references numbered correctly.</p>
 
-<p>That will produce the final report in PDF format. The report is available for download at <a href="http://www.paceturf.org/PTRI/Documents/2014_gss_report.pdf">http://www.paceturf.org/PTRI/Documents/2014_gss_report.pdf</a></p>
+<p>That will produce the final report in PDF format. </p>
 
-<h3>
-<a name="the-gss-data" class="anchor" href="#the-gss-data"><span class="octicon octicon-link"></span></a>The GSS data</h3>
+<p>Alternatively, the <code>Compile PDF</code> command in <a href="http://www.rstudio.com/">RStudio</a> with project options set to typeset <code>LaTeX</code> into <code>PDF</code> using <code>pdfLaTeX</code> will also produce the final report.</p>
+        </section>
 
-<p>If you just want to work with the first year data from the Global Soil Survey, those data are in the <code>/data</code> folder: <a href="https://github.com/micahwoods/2014_gss_report/blob/master/data/20140910_gss.csv">https://github.com/micahwoods/2014_gss_report/blob/master/data/20140910_gss.csv</a></p>
-      </section>
+        <aside id="sidebar">
+          <a href="https://github.com/micahwoods/2014_gss_report/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/micahwoods/2014_gss_report/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/micahwoods/2014_gss_report"></a> is maintained by <a href="https://github.com/micahwoods">micahwoods</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
-    <footer>
-      <p>Project maintained by <a href="https://github.com/micahwoods">micahwoods</a></p>
-      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
-    </footer>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-    
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-55006375-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
