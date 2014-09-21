@@ -20,7 +20,7 @@ Check out the code chunks in the `2014_gss_report.Rnw` file.
 
 Put these files in a directory. 
 
-One must have `R` and `LaTeX` installed on your machine. The `R` packages `knitr`, `dplyr`, `VGAM`, and `xtable` must be installed also.
+`R` and `LaTeX` must be installed on one's machine. The `R` packages `knitr`, `dplyr`, `VGAM`, and `xtable` must be installed also.
 
 Note that this report uses the [tufte-handout class](https://code.google.com/p/tufte-latex/). The `tufte-common.def` and `tufte-handout.cls` files should be in the same directory with the `.Rnw` and `.tex` files.
 
@@ -42,3 +42,5 @@ Then at the terminal command line:
 Run `pdflatex 2014_gss_report.tex` a second time to get all the cross-references numbered correctly.
 
 That will produce the final report in PDF format. 
+
+Alternatively, the `Compile PDF` command in [RStudio](http://www.rstudio.com/) with project options set to typeset `LaTeX` into `PDF` using `pdfLaTeX` will also produce the final report.
