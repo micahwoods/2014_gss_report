@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>2014 gss report by micahwoods</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>2014 gss report</h1>
+        <p>The files in this repository generate the 2014 Global Soil Survey report.</p>
+        <p class="view"><a href="https://github.com/micahwoods/2014_gss_report">View the Project on GitHub <small>micahwoods/2014_gss_report</small></a></p>
+        <ul>
+          <li><a href="https://github.com/micahwoods/2014_gss_report/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/micahwoods/2014_gss_report/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/micahwoods/2014_gss_report">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <p>The files in this repository will generate the 2014 Global Soil Survey report.</p>
+
+<h3>
+<a name="required-files-and-software" class="anchor" href="#required-files-and-software"><span class="octicon octicon-link"></span></a>Required files and software</h3>
+
+<p>Put these files in a directory. </p>
+
+<p>One must have <code>R</code> and <code>LaTeX</code> installed. The <code>R</code> packages <code>knitr</code>, <code>dplyr</code>, <code>VGAM</code>, and <code>xtable</code> must be installed also.</p>
+
+<p>Note that this report uses the tufte-handout class, which is available here: <a href="https://code.google.com/p/tufte-latex/">https://code.google.com/p/tufte-latex/</a>. The <code>tufte-common.def</code> and <code>tufte-handout.cls</code> files should be in the same directory with the <code>.Rnw</code> and <code>.tex</code> files.</p>
+
+<h3>
+<a name="generating-the-report" class="anchor" href="#generating-the-report"><span class="octicon octicon-link"></span></a>Generating the report</h3>
+
+<p>In <code>R</code>:</p>
+
+<p><code>setwd("directory name")</code><br><code>library(knitr)</code><br><code>knit("2014_gss_report.Rnw")</code>   </p>
+
+<p>That will create the <code>2014_gss_report.tex</code> file.</p>
+
+<p>Then at the terminal command line:</p>
+
+<p><code>cd directory name</code><br><code>pdflatex 2014_gss_report.tex</code>   </p>
+
+<p>Run <code>pdflatex 2014_gss_report.tex</code> a second time to get all the cross-references numbered correctly.</p>
+
+<p>That will produce the final report in PDF format. The report is available for download at <a href="http://www.paceturf.org/PTRI/Documents/2014_gss_report.pdf">http://www.paceturf.org/PTRI/Documents/2014_gss_report.pdf</a></p>
+      </section>
+    </div>
+    <footer>
+      <p>Project maintained by <a href="https://github.com/micahwoods">micahwoods</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+    </footer>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
