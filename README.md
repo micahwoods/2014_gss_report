@@ -1,7 +1,5 @@
 The files in this repository will generate the 2014 [Global Soil Survey](http://www.paceturf.org/journal/global_soil_survey) report, a joint project of [PACE Turf](http://www.paceturf.org/), the [Asian Turfgrass Center](http://www.asianturfgrass.com/), and the turfgrass managers from around the world who have contributed samples to this project. 
 
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.23033.svg)](http://dx.doi.org/10.5281/zenodo.23033)
-
 ### If you just want a copy of the report
 
 [Download](http://www.paceturf.org/PTRI/Documents/2014_gss_report.pdf) a `pdf` copy of the first year report.
@@ -11,6 +9,10 @@ The files in this repository will generate the 2014 [Global Soil Survey](http://
 The data are in the `/data` folder of this repository. 
 
 Direct link: [GSS survey data, September 2013 to August 2014](https://github.com/micahwoods/2014_gss_report/blob/master/data/20140910_gss.csv)
+
+### If you want to cite these data or this report
+
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.23033.svg)](http://dx.doi.org/10.5281/zenodo.23033)
 
 ### If you are interested in the analyses we have done
 
